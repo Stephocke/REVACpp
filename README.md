@@ -10,14 +10,14 @@ Relevance Estimation and Value Calibration in C++
 // sphere fitness function
 double sphere(const ParaVector& paraVector)
 {
-	int i = 0;
-	return std::accumulate(paraVector.data().begin(), paraVector.data().end(), 0.0,
-		[&](double& sum, const double& val)
-		{;
-			double us = unscale0_1(val, paraVector.bounds()[i].min, paraVector.bounds()[i].max);
-			i++;
-			return sum + us * us;
-		});
+	double obj = 0;
+	for (int i = 0; i < paraVector.k(); i++)
+	{
+		double xi = paraVector.unscaled_at(i);
+		obj += std::pow(xi, 2);
+	}
+
+	return obj;
 }
 
 // rosenbrock fitness function
@@ -26,8 +26,8 @@ double rosenbrock(const ParaVector& paraVector)
 	double obj = 0;
 	for (int i = 0; i < paraVector.k() - 1; i++)
 	{
-		double xi = unscale0_1(paraVector.at(i), paraVector.bounds()[i].min, paraVector.bounds()[i].max);
-		double xiplus = unscale0_1(paraVector.at(i + 1), paraVector.bounds()[i + 1].min, paraVector.bounds()[i + 1].max);
+		double xi = paraVector.unscaled_at(i);
+		double xiplus = paraVector.unscaled_at(i + 1);
 
 		obj += 100 * std::pow(xiplus - std::pow(xi, 2), 2) + std::pow(1 - xi, 2);
 	}
@@ -44,7 +44,7 @@ int main()
 	int s = 100; // pop size
 	std::vector<Bound> bounds(k, Bound{ -10, 10 });
 
-	ParaVector solution = REVAC(k, bounds.data(), rosenbrock, 20000, p, h, s, std::cout);
+	ParaVector solution = REVAC(k, bounds.data(), sphere, 20000, p, h, s, std::cout);
 
 	std::cout << solution;
 }
