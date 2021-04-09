@@ -86,7 +86,7 @@ std::ostream& operator<<(std::ostream&stream, const ParaVector& vec)
 }
 
 
-// uniform scanning crossover 
+// uniform scanning crossover  - returns the offspring of the crossover
 // pop - population vector 
 // p - number of parents concerned
 // objective - objective function to evaluate a ParaVector
