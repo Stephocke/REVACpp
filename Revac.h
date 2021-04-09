@@ -88,7 +88,7 @@ std::ostream& operator<<(std::ostream&stream, const ParaVector& vec)
 
 // uniform scanning crossover  - returns the offspring of the crossover
 // pop - population vector 
-// p - number of parents concerned
+// p - number of parents concerned (first p elements in pop)
 // objective - objective function to evaluate a ParaVector
 ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&))
 {
@@ -120,7 +120,7 @@ ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&
 // REVAC mutation operator
 // pop - population
 // offspring - created from crossover
-// p - number of parents
+// p - number of parents (first p elements in pop)
 // k - column or parameter i respectively
 // h - REVAC parameter determines the range of the mutation interval
 void mutation(Population&pop, ParaVector& offspring, int p, int k, int h, double(*objective)(const ParaVector&))
