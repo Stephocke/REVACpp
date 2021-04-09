@@ -38,6 +38,7 @@ public:
 	int age()const { return m_age; }
 	const Bound*bounds()const { return m_bounds.data(); }
 	double at(int i)const { return m_data[i]; }
+	double unscaled_at(int i)const { return unscale0_1(m_data[i], m_bounds[i].min, m_bounds[i].max); }
 	double fitness()const { return m_fitness; }
 	const std::vector<double>& data()const { return m_data; }
 
