@@ -16,7 +16,6 @@ double sphere(const ParaVector& paraVector)
 		double xi = paraVector.unscaled_at(i);
 		obj += std::pow(xi, 2);
 	}
-
 	return obj;
 }
 
