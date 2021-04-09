@@ -14,9 +14,9 @@ double sphere(const ParaVector& paraVector)
 	return std::accumulate(paraVector.data().begin(), paraVector.data().end(), 0.0,
 		[&](double& sum, const double& val)
 		{;
-	double us = unscale0_1(val, paraVector.bounds()[i].min, paraVector.bounds()[i].max);
-	i++;
-	return sum + us * us;
+			double us = unscale0_1(val, paraVector.bounds()[i].min, paraVector.bounds()[i].max);
+			i++;
+			return sum + us * us;
 		});
 }
 
