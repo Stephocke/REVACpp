@@ -8,7 +8,7 @@
 #include <iostream> // cout
 
 
-std::default_random_engine gen;
+std::default_random_engine revacGen;
 
 double scale0_1(double val, double min, double max)
 {
@@ -95,7 +95,7 @@ ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&
 	int k = pop[0].k();
 	std::vector<int> idx(p);
 	std::iota(idx.begin(), idx.end(), 0);
-	std::shuffle(idx.begin(), idx.end(), gen);
+	std::shuffle(idx.begin(), idx.end(), revacGen);
 
 	int pidx = -1;
 	int pctr = 0;
@@ -156,7 +156,7 @@ void mutation(Population&pop, ParaVector& offspring, int p, int k, int h, double
 		mintervalEnd = D[ub + h - 1];
 	}
 
-	offspring.m_data[k] = std::uniform_real_distribution<double>(mintervalBegin, mintervalEnd)(gen);
+	offspring.m_data[k] = std::uniform_real_distribution<double>(mintervalBegin, mintervalEnd)(revacGen);
 	offspring.evaluate(objective);
 }
 
@@ -236,7 +236,7 @@ ParaVector REVAC(int k, const Bound*bounds, double(*objective)(const ParaVector&
 
 // clears and initializes the m_data vector with random values drawn from a uniform distribution
 // k - number of parameters
-// bounds - array comprising the bounds associated with the k variables
+// bounds - array associated with the k variables
 // objective - objective function to evaluate the initialized paraVector - if null fitness is INFINITY
 void ParaVector::init(int k, const Bound*bounds, double(*objective)(const ParaVector&))
 {
@@ -246,7 +246,7 @@ void ParaVector::init(int k, const Bound*bounds, double(*objective)(const ParaVe
 	for (int i = 0; i < k; i++)
 	{
 		m_bounds.push_back(bounds[i]);
-		double val = std::uniform_real_distribution<double>(bounds[i].min, bounds[i].max)(gen);
+		double val = std::uniform_real_distribution<double>(bounds[i].min, bounds[i].max)(revacGen);
 		m_data.push_back(scale0_1(val, bounds[i].min, bounds[i].max));
 	}
 
