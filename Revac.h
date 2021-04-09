@@ -42,7 +42,6 @@ public:
 	const std::vector<double>& data()const { return m_data; }
 
 	void clear();
-	void evaluate(double(*objective)(const ParaVector&)) { m_fitness = objective(*this); }
 	void init(int k, const Bound*bounds, double(*objective)(const ParaVector&) = nullptr);
 	void updateAge() { m_age++; }
 
@@ -55,6 +54,7 @@ private:
 	double m_fitness;
 	std::vector<double> m_data;
 	std::vector<Bound> m_bounds;
+	void evaluate(double(*objective)(const ParaVector&)) { m_fitness = objective(*this); }
 };
 
 
