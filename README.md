@@ -47,5 +47,4 @@ int main()
 	ParaVector solution = REVAC(k, bounds.data(), rosenbrock, 20000, p, h, s, std::cout);
 
 	std::cout << solution;
-}
- }```
+}```
