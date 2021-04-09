@@ -218,7 +218,7 @@ ParaVector REVAC(int k, const Bound*bounds, double(*objective)(const ParaVector&
 		}
 
 		if (it % 100 == 0)
-			std::cout << "Iteration " << it << ": Avg=" << avgFitness(pop)
+			stream << "Iteration " << it << ": Avg=" << avgFitness(pop)
 			<< "\tBestPop=" << pop[0].fitness()
 			<< "\tBestOpt=" << bestFitness << "\n";
 
