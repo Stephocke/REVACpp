@@ -13,9 +13,10 @@ double sphere(const ParaVector& paraVector)
 	double obj = 0;
 	for (int i = 0; i < paraVector.k(); i++)
 	{
-		double xi = paraVector.unscaled_at(i);
+		double xi = paraVector.at(i);
 		obj += std::pow(xi, 2);
 	}
+
 	return obj;
 }
 
@@ -25,8 +26,8 @@ double rosenbrock(const ParaVector& paraVector)
 	double obj = 0;
 	for (int i = 0; i < paraVector.k() - 1; i++)
 	{
-		double xi = paraVector.unscaled_at(i);
-		double xiplus = paraVector.unscaled_at(i + 1);
+		double xi = paraVector.at(i);
+		double xiplus = paraVector.at(i + 1);
 
 		obj += 100 * std::pow(xiplus - std::pow(xi, 2), 2) + std::pow(1 - xi, 2);
 	}
