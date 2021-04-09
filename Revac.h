@@ -176,7 +176,15 @@ int updateAge(Population& pop)
 }
 
 
-
+// Relevance estimation and value calibration
+// k - number of parameters
+// bounds - array of bounds associated to the k variables
+// objective - objective function to evaluate a ParaVector
+// iterations - number of iterations 
+// p - number of parents
+// h - numbers of neighbors considered during mutation 
+// s - population size
+// stream - output stream, e.g., a file or the console
 ParaVector REVAC(int k, const Bound*bounds, double(*objective)(const ParaVector&), int iterations = 10000, int p = 50, int h = -1, int s = 100,std::ostream& stream = std::cout)
 {
 	// initialization
