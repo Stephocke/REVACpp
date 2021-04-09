@@ -59,7 +59,7 @@ private:
 
 
 
-
+// computes the average fitness of a population vector
 double avgFitness(const Population& pop)
 {
 	int n = pop.size();
@@ -71,7 +71,7 @@ double avgFitness(const Population& pop)
 }
 
 
-
+// outputs the unscaled values of the m_data vector
 std::ostream& operator<<(std::ostream&stream, const ParaVector& vec)
 {
 	int i = 0;
@@ -86,7 +86,10 @@ std::ostream& operator<<(std::ostream&stream, const ParaVector& vec)
 }
 
 
-
+// uniform scanning crossover 
+// pop - population vector 
+// p - number of parents concerned
+// objective - objective function to evaluate a ParaVector
 ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&))
 {
 	int k = pop[0].k();
@@ -114,6 +117,7 @@ ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&
 	return offspring;
 }
 
+// REVAC mutation operator
 // pop - population
 // offspring - created from crossover
 // p - number of parents
@@ -157,6 +161,8 @@ void mutation(Population&pop, ParaVector& offspring, int p, int k, int h, double
 }
 
 
+// updates the age of all ParaVectors within the population 
+// returns the index of the element comprising the highest age
 int updateAge(Population& pop)
 {
 	int amaxIdx = -1;
@@ -228,6 +234,10 @@ ParaVector REVAC(int k, const Bound*bounds, double(*objective)(const ParaVector&
 }
 
 
+// clears and initializes the m_data vector with random values drawn from a uniform distribution
+// k - number of parameters
+// bounds - array associated with the k variables
+// objective - objective function to evaluate the initialized paraVector - if null fitness is INFINITY
 void ParaVector::init(int k, const Bound*bounds, double(*objective)(const ParaVector&))
 {
 	clear();
@@ -246,7 +256,7 @@ void ParaVector::init(int k, const Bound*bounds, double(*objective)(const ParaVe
 	}
 }
 
-
+// clears the m_data vector
 void ParaVector::clear()
 {
 	m_fitness = INFINITY;
