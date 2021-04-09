@@ -36,7 +36,7 @@ double rosenbrock(const ParaVector& paraVector)
 
 int main()
 {
-	gen.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+	revacGen.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 
 	int p = 50;   // number of parents
 	int h = 5;	 // considered neighbors in mutation
