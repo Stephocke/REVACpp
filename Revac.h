@@ -37,8 +37,8 @@ public:
 	int k()const { return int(m_data.size()); }
 	int age()const { return m_age; }
 	const Bound*bounds()const { return m_bounds.data(); }
-	double at(int i)const { return m_data[i]; }
-	double unscaled_at(int i)const { return unscale0_1(m_data[i], m_bounds[i].min, m_bounds[i].max); }
+	double scaled_at(int i)const { return m_data[i]; }
+	double at(int i)const { return unscale0_1(m_data[i], m_bounds[i].min, m_bounds[i].max); }
 	double fitness()const { return m_fitness; }
 	const std::vector<double>& data()const { return m_data; }
 
@@ -87,9 +87,9 @@ std::ostream& operator<<(std::ostream&stream, const ParaVector& vec)
 }
 
 
-// uniform scanning crossover  - returns the offspring of the crossover
+// uniform scanning crossover - returns the offspring of the crossover
 // pop - population vector 
-// p - number of parents concerned (first p elements in pop)
+// p - number of parents concerned
 // objective - objective function to evaluate a ParaVector
 ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&))
 {
@@ -110,7 +110,7 @@ ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&
 			pidx = idx[pctr];
 			pctr++;
 		}
-		offspring.m_data[i] = pop[pidx].at(i);
+		offspring.m_data[i] = pop[pidx].scaled_at(i);
 	}
 
 	offspring.evaluate(objective);
@@ -121,7 +121,7 @@ ParaVector uscanning(Population&pop, int p, double(*objective)(const ParaVector&
 // REVAC mutation operator
 // pop - population
 // offspring - created from crossover
-// p - number of parents (first p elements in pop)
+// p - number of parents
 // k - column or parameter i respectively
 // h - REVAC parameter determines the range of the mutation interval
 void mutation(Population&pop, ParaVector& offspring, int p, int k, int h, double(*objective)(const ParaVector&))
@@ -130,7 +130,7 @@ void mutation(Population&pop, ParaVector& offspring, int p, int k, int h, double
 
 	for (int i = 0; i < p; i++)
 	{
-		D[i] = pop.data()[i].at(k);
+		D[i] = pop.data()[i].scaled_at(k);
 	}
 
 	std::sort(D.begin(), D.end());
