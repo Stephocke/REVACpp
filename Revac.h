@@ -236,7 +236,7 @@ ParaVector REVAC(int k, const Bound*bounds, double(*objective)(const ParaVector&
 
 // clears and initializes the m_data vector with random values drawn from a uniform distribution
 // k - number of parameters
-// bounds - array associated with the k variables
+// bounds - array comprising the bounds associated with the k variables
 // objective - objective function to evaluate the initialized paraVector - if null fitness is INFINITY
 void ParaVector::init(int k, const Bound*bounds, double(*objective)(const ParaVector&))
 {
